@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'none'" />
+    <title>WorkBridge</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="rail">
+        <div class="brand"><div class="brand-mark">W</div><div><strong>WorkBridge</strong><span data-i18n="brandTagline">대화를 환경 너머로</span></div></div>
+        <button id="toggle-sidebar" class="sidebar-toggle" type="button" aria-label="사이드바 접기" data-i18n-aria-label="collapseSidebar">‹</button>
+        <nav>
+          <button class="nav-button active" data-view="source"><span class="nav-icon">↗</span><span data-i18n="export">내보내기</span></button>
+          <button class="nav-button" data-view="imports"><span class="nav-icon">↙</span><span data-i18n="imports">가져온 묶음</span></button>
+          <button class="nav-button" data-view="cloud"><span class="nav-icon">☁</span><span data-i18n="cloud">클라우드</span></button>
+        </nav>
+        <div class="privacy"><span class="privacy-dot"></span><div><strong data-i18n="localFirst">로컬 우선</strong><span data-i18n="privacyNote">토큰·쿠키 제외</span></div></div>
+      </aside>
+
+      <section class="library">
+        <header class="library-header">
+          <span class="eyebrow" id="library-eyebrow">SOURCE</span>
+          <h1 id="library-title" data-i18n="selectChats">옮길 대화 선택</h1>
+          <div id="source-actions" class="source-actions">
+            <button id="load-codex" class="source-card"><span class="source-logo codex">C</span><span><strong data-i18n="codexWork">Codex 작업</strong><small data-i18n="localWork">이 기기의 로컬 작업</small></span></button>
+            <button id="load-cursor" class="source-card"><span class="source-logo cursor">I</span><span><strong data-i18n="cursorWork">Cursor 작업</strong><small data-i18n="localWork">이 기기의 로컬 작업</small></span></button>
+            <button id="load-claude" class="source-card"><span class="source-logo claude">A</span><span><strong data-i18n="claudeWork">Claude Code 작업</strong><small data-i18n="localWork">이 기기의 로컬 작업</small></span></button>
+            <button id="load-chatgpt" class="source-card"><span class="source-logo chatgpt">G</span><span><strong>ChatGPT export</strong><small>ZIP / JSON</small></span></button>
+            <button id="import-bundle" class="source-card"><span class="source-logo bundle">↙</span><span><strong data-i18n="importBundle">묶음 가져오기</strong><small data-i18n="openBundle">.workbridge 열기</small></span></button>
+            <button id="delete-export" class="source-card danger-card"><span class="source-logo delete">×</span><span><strong data-i18n="deleteExport">내보낸 묶음 삭제</strong><small data-i18n="deleteExportHint">.workbridge 파일</small></span></button>
+          </div>
+          <div class="search-wrap"><span>⌕</span><input id="search" type="search" placeholder="대화 검색" data-i18n-placeholder="searchChats" /></div>
+        </header>
+        <div class="list-toolbar"><div class="list-toolbar-actions"><label id="select-all-wrap"><input id="select-all" type="checkbox" /> <span data-i18n="selectAll">전체 선택</span></label><button id="delete-selected" class="toolbar-danger" type="button" data-i18n="deleteSelected" disabled>삭제</button></div><span id="list-count">0개</span></div>
+        <div id="chat-list" class="chat-list"></div>
+        <div id="export-bar" class="export-bar">
+          <label><input id="include-projects" type="checkbox" /> <span data-i18n="includeProjects">Git 프로젝트 포함</span></label>
+          <div class="export-actions"><button id="cloud-upload" class="secondary-button" data-i18n="saveCloud">클라우드 저장</button><button id="create-bundle" class="primary-button" data-i18n="exportSelected">선택 항목 내보내기</button></div>
+        </div>
+      </section>
+
+      <main class="detail">
+        <header class="detail-header">
+          <div><span class="eyebrow" id="detail-kind">WORKBRIDGE</span><h2 id="detail-title" data-i18n="chooseChat">대화를 선택하세요</h2></div>
+          <div id="detail-actions" class="detail-actions"></div>
+        </header>
+        <div id="detail-meta" class="detail-meta"></div>
+        <section id="transcript" class="transcript">
+          <div class="empty-state"><div class="empty-symbol">⌁</div><h3 data-i18n="emptyTitle">작업 흐름을 그대로 옮기세요</h3><p data-i18n="emptyBody">Mac에서 선택하고 묶은 뒤, Ubuntu에서 열어 프로젝트와 대화를 이어갑니다.</p></div>
+        </section>
+      </main>
+    </div>
+    <div id="settings-backdrop" class="settings-backdrop" hidden>
+      <section class="settings-dialog" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+        <header><div><span class="eyebrow">WORKBRIDGE</span><h2 id="settings-title" data-i18n="settings">설정</h2></div><button id="close-settings" class="icon-button" type="button" aria-label="닫기" data-i18n-aria-label="close">×</button></header>
+        <div class="setting-row codex-setting"><div><strong data-i18n="codexLocation">Codex 위치</strong><span data-i18n="codexLocationHint">설치된 Codex 실행 파일 찾기</span></div><div class="codex-detect-control"><input id="codex-path" type="text" readonly placeholder="아직 감지하지 않음" data-i18n-placeholder="codexNotDetected" /><button id="input-codex" class="secondary-button" type="button" data-i18n="inputPath">입력</button><button id="detect-codex" class="secondary-button" type="button" data-i18n="autoDetect">자동 감지</button></div></div>
+        <div class="setting-row cloud-server-setting"><div><strong data-i18n="cloudServer">클라우드 서버</strong><span data-i18n="cloudServerHint">원격 WorkBridge Cloud 주소</span></div><input id="cloud-server-url" type="url" spellcheck="false" placeholder="https://cloud.example.com" /></div>
+        <div class="setting-row"><div><strong data-i18n="language">언어</strong><span data-i18n="languageHint">앱에 표시할 언어</span></div><select id="language-setting"><option value="ko">한국어</option><option value="en">English</option></select></div>
+        <div class="setting-row"><div><strong data-i18n="theme">테마</strong><span data-i18n="themeHint">화면 색상 설정</span></div><select id="theme-setting"><option value="system" data-i18n="themeSystem">시스템 동기화</option><option value="black" data-i18n="themeBlack">블랙</option><option value="light" data-i18n="themeLight">라이트</option></select></div>
+        <footer><button id="cancel-settings" class="secondary-button" type="button" data-i18n="cancel">취소</button><button id="save-settings" class="primary-button" type="button" data-i18n="save">저장</button></footer>
+      </section>
+    </div>
+    <div id="codex-path-backdrop" class="settings-backdrop" hidden>
+      <section class="settings-dialog path-dialog" role="dialog" aria-modal="true" aria-labelledby="codex-path-title">
+        <header><div><span class="eyebrow">CODEX</span><h2 id="codex-path-title" data-i18n="inputCodexPath">Codex 경로 입력</h2></div><button id="close-codex-path" class="icon-button" type="button" aria-label="닫기" data-i18n-aria-label="close">×</button></header>
+        <div class="path-fields"><label for="codex-path-input" data-i18n="executablePath">실행 파일 경로</label><input id="codex-path-input" type="text" spellcheck="false" autocomplete="off" placeholder="/usr/lib/chatgpt/resources/codex" /><p data-i18n="pathInputHint">Codex 또는 ChatGPT 앱에 포함된 codex 실행 파일의 전체 경로를 입력하세요.</p></div>
+        <footer><button id="cancel-codex-path" class="secondary-button" type="button" data-i18n="cancel">취소</button><button id="save-codex-path" class="primary-button" type="button" data-i18n="apply">적용</button></footer>
+      </section>
+    </div>
+    <div id="cloud-auth-backdrop" class="settings-backdrop" hidden>
+      <section class="settings-dialog auth-dialog" role="dialog" aria-modal="true" aria-labelledby="cloud-auth-title">
+        <header><div><span class="eyebrow">WORKBRIDGE CLOUD</span><h2 id="cloud-auth-title" data-i18n="cloudAccount">클라우드 계정</h2></div><button id="close-cloud-auth" class="icon-button" type="button" aria-label="닫기" data-i18n-aria-label="close">×</button></header>
+        <div class="auth-fields">
+          <label><span data-i18n="email">이메일</span><input id="cloud-email" type="email" autocomplete="email" /></label>
+          <label><span data-i18n="accountPassword">계정 비밀번호</span><input id="cloud-password" type="password" autocomplete="current-password" /></label>
+          <label><span data-i18n="encryptionPassword">암호화 비밀번호</span><input id="cloud-passphrase" type="password" autocomplete="off" minlength="8" /></label>
+          <p data-i18n="encryptionHint">파일은 이 비밀번호로 기기에서 암호화됩니다. 서버는 대화 내용을 읽을 수 없습니다. 분실하면 복구할 수 없습니다.</p>
+        </div>
+        <footer><button id="cloud-signup" class="secondary-button" type="button" data-i18n="signUp">회원가입</button><button id="cloud-login" class="primary-button" type="button" data-i18n="login">로그인</button></footer>
+      </section>
+    </div>
+    <div id="delete-backdrop" class="settings-backdrop" hidden>
+      <section class="settings-dialog delete-dialog" role="alertdialog" aria-modal="true" aria-labelledby="delete-title" aria-describedby="delete-warning">
+        <header><div><span class="eyebrow">WORKBRIDGE</span><h2 id="delete-title" data-i18n="deleteSelectedTitle">선택한 작업 삭제</h2></div></header>
+        <p id="delete-warning" class="delete-warning" data-i18n="deleteIrreversible">삭제 후에는 복구할 수 없습니다.</p>
+        <footer><button id="cancel-delete" class="secondary-button" type="button" data-i18n="cancel">취소</button><button id="confirm-delete" class="danger-button" type="button" data-i18n="delete">삭제</button></footer>
+      </section>
+    </div>
+    <div id="toast" class="toast" role="status"></div>
+    <script src="app.js"></script>
+  </body>
+</html>

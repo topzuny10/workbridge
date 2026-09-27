@@ -1,0 +1,38 @@
+{
+  "name": "workbridge",
+  "version": "0.3.2",
+  "private": true,
+  "author": "WorkBridge Contributors",
+  "description": "Move and securely sync selected AI conversations between desktop environments",
+  "main": "src/main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "test": "node scripts/test.cjs",
+    "check": "node --check src/main.cjs && node --check src/preload.cjs && node --check src/renderer/app.js && node --check src/lib/claude-chats.cjs && node --check src/lib/cursor-chats.cjs && node --check cloud/server.cjs && node scripts/test.cjs",
+    "cloud:start": "node cloud/server.cjs",
+    "dist:linux": "electron-builder --linux dir",
+    "package:linux": "sh scripts/build-linux-installer.sh",
+    "dist:mac": "electron-builder --mac dmg --x64 --arm64"
+  },
+  "dependencies": {
+    "adm-zip": "^0.6.1"
+  },
+  "devDependencies": {
+    "electron": "^44.4.5",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.workbridge.desktop",
+    "productName": "WorkBridge",
+    "asar": true,
+    "files": ["src/**/*", "package.json"],
+    "directories": { "output": "dist", "buildResources": "build" },
+    "linux": { "target": "dir", "category": "Utility", "icon": "build/icon.png" },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.productivity",
+      "icon": "build/icon.icns",
+      "artifactName": "WorkBridge-${version}-${arch}.${ext}"
+    }
+  }
+}

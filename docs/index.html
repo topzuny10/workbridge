@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="WorkBridge moves selected AI conversations between macOS and Linux." />
+    <title>WorkBridge — conversations across environments</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23172019'/%3E%3Cpath d='M15 18l8 29h7l3-13 4 13h7l6-29h-8l-3 17-4-14h-5l-4 14-3-17z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="WorkBridge home"><span>W</span>WorkBridge</a>
+      <nav><a href="#how" data-ko="사용 방법" data-en="How it works">사용 방법</a><a href="#downloads" data-ko="다운로드" data-en="Downloads">다운로드</a><button id="language" type="button">EN</button></nav>
+    </header>
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow" data-ko="대화를 환경 너머로" data-en="CONVERSATIONS ACROSS ENVIRONMENTS">대화를 환경 너머로</p>
+          <h1 data-ko="작업의 흐름을 그대로 옮기세요." data-en="Carry your workflow with you.">작업의 흐름을 그대로 옮기세요.</h1>
+          <p class="lede" data-ko="Mac에서 시작한 Codex, Claude Code, Cursor 작업을 묶어 Ubuntu에서 이어갑니다. 선택한 대화와 프로젝트 문맥만 이동합니다." data-en="Bundle Codex, Claude Code, and Cursor work from your Mac, then continue on Ubuntu. Move only the conversations and project context you select.">Mac에서 시작한 Codex, Claude Code, Cursor 작업을 묶어 Ubuntu에서 이어갑니다. 선택한 대화와 프로젝트 문맥만 이동합니다.</p>
+          <div class="hero-actions"><a class="button primary" href="#downloads" data-ko="다운로드" data-en="Download">다운로드</a><a class="button secondary" id="repo-link" href="#" data-ko="GitHub 보기" data-en="View on GitHub">GitHub 보기</a></div>
+        </div>
+        <div class="bridge-card" aria-label="WorkBridge transfer illustration">
+          <div class="platform"><span class="platform-icon">⌘</span><strong>macOS</strong><small>Codex · Claude · Cursor</small></div>
+          <div class="route"><span></span><b>W</b><span></span></div>
+          <div class="platform"><span class="platform-icon">◉</span><strong>Ubuntu</strong><small data-ko="복원하고 이어가기" data-en="Restore and continue">복원하고 이어가기</small></div>
+        </div>
+      </section>
+      <section class="trust-strip"><span data-ko="선택한 대화만" data-en="Only selected conversations">선택한 대화만</span><span data-ko="로컬 우선" data-en="Local first">로컬 우선</span><span data-ko="암호화 클라우드 옵션" data-en="Optional encrypted cloud">암호화 클라우드 옵션</span><span>macOS + Linux</span></section>
+      <section id="how" class="section">
+        <p class="eyebrow" data-ko="간단한 이동" data-en="A SIMPLE TRANSFER">간단한 이동</p>
+        <h2 data-ko="세 단계로 이어서 작업하세요." data-en="Continue in three steps.">세 단계로 이어서 작업하세요.</h2>
+        <div class="steps">
+          <article><b>01</b><h3 data-ko="불러오기" data-en="Load">불러오기</h3><p data-ko="지원하는 AI의 로컬 작업 또는 ChatGPT export를 불러옵니다." data-en="Load local work from a supported AI or a ChatGPT export.">지원하는 AI의 로컬 작업 또는 ChatGPT export를 불러옵니다.</p></article>
+          <article><b>02</b><h3 data-ko="확인하고 묶기" data-en="Review and bundle">확인하고 묶기</h3><p data-ko="대화를 스크롤해 확인하고 필요한 항목만 .workbridge 파일로 저장합니다." data-en="Scroll through the conversation and save only what you need in a .workbridge bundle.">대화를 스크롤해 확인하고 필요한 항목만 .workbridge 파일로 저장합니다.</p></article>
+          <article><b>03</b><h3 data-ko="복원하고 계속하기" data-en="Restore and continue">복원하고 계속하기</h3><p data-ko="다른 OS에서 묶음을 열고 프로젝트와 Codex 작업을 이어갑니다." data-en="Open the bundle on another OS and continue the project in Codex.">다른 OS에서 묶음을 열고 프로젝트와 Codex 작업을 이어갑니다.</p></article>
+        </div>
+      </section>
+      <section id="downloads" class="section downloads">
+        <div><p class="eyebrow" data-ko="최신 릴리스" data-en="LATEST RELEASE">최신 릴리스</p><h2 data-ko="운영체제에 맞게 받으세요." data-en="Download for your system.">운영체제에 맞게 받으세요.</h2><p id="release-status" class="release-status" data-ko="GitHub Release를 확인하는 중…" data-en="Checking GitHub Releases…">GitHub Release를 확인하는 중…</p></div>
+        <div class="download-grid">
+          <article><span class="os-mark">◉</span><div><h3>Linux x64</h3><p>Ubuntu 22.04+</p></div><a class="download-link" data-asset="linux" href="#" aria-disabled="true">.sh <span>↓</span></a></article>
+          <article><span class="os-mark">⌘</span><div><h3>macOS</h3><p>Apple Silicon</p></div><a class="download-link" data-asset="arm64" href="#" aria-disabled="true">arm64.dmg <span>↓</span></a></article>
+          <article><span class="os-mark">⌘</span><div><h3>macOS</h3><p>Intel</p></div><a class="download-link" data-asset="x64" href="#" aria-disabled="true">x64.dmg <span>↓</span></a></article>
+        </div>
+        <p class="install-note" data-ko="Linux 설치 파일에 실행 권한을 준 뒤 실행하세요. macOS 빌드는 현재 서명되지 않았습니다." data-en="Make the Linux installer executable before running it. macOS builds are currently unsigned.">Linux 설치 파일에 실행 권한을 준 뒤 실행하세요. macOS 빌드는 현재 서명되지 않았습니다.</p>
+      </section>
+      <section class="section privacy-section"><div><p class="eyebrow" data-ko="프라이버시" data-en="PRIVACY">프라이버시</p><h2 data-ko="대화는 먼저 내 기기에서 처리됩니다." data-en="Your conversations stay local first.">대화는 먼저 내 기기에서 처리됩니다.</h2></div><p data-ko="파일 이동은 로컬에서 작동합니다. 선택 사항인 WorkBridge Cloud는 업로드 전에 대화를 암호화하지만, 현재 서버는 개인용 self-hosted MVP입니다. 공개 클라우드 서비스가 아닙니다." data-en="File transfers work locally. Optional WorkBridge Cloud encrypts conversations before upload, but the included server is a personal self-hosted MVP, not a public cloud service.">파일 이동은 로컬에서 작동합니다. 선택 사항인 WorkBridge Cloud는 업로드 전에 대화를 암호화하지만, 현재 서버는 개인용 self-hosted MVP입니다. 공개 클라우드 서비스가 아닙니다.</p></section>
+    </main>
+    <footer><span>WorkBridge</span><span>MIT License · <a id="guide-link" href="../README_KR.md" data-ko="사용 설명서" data-en="User guide">사용 설명서</a></span></footer>
+    <script src="app.js"></script>
+  </body>
+</html>

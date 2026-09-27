@@ -1,0 +1,30 @@
+const { contextBridge, ipcRenderer } = require("electron");
+
+contextBridge.exposeInMainWorld("workBridge", {
+  getState: () => ipcRenderer.invoke("state:get"),
+  savePreferences: (preferences) => ipcRenderer.invoke("preferences:set", preferences),
+  detectCodex: () => ipcRenderer.invoke("codex:detect"),
+  setCodexPath: (path) => ipcRenderer.invoke("codex:set-path", path),
+  onOpenSettings: (callback) => ipcRenderer.on("settings:open", callback),
+  loadCodex: () => ipcRenderer.invoke("source:codex"),
+  loadCursor: () => ipcRenderer.invoke("source:cursor"),
+  loadClaude: () => ipcRenderer.invoke("source:claude"),
+  loadChatGpt: () => ipcRenderer.invoke("source:chatgpt"),
+  listSource: () => ipcRenderer.invoke("source:list"),
+  readSource: (chatId) => ipcRenderer.invoke("source:read", chatId),
+  deleteSource: (chatIds) => ipcRenderer.invoke("source:delete", chatIds),
+  createBundle: (options) => ipcRenderer.invoke("bundle:create", options),
+  authenticateCloud: (options) => ipcRenderer.invoke("cloud:authenticate", options),
+  logoutCloud: () => ipcRenderer.invoke("cloud:logout"),
+  listCloud: () => ipcRenderer.invoke("cloud:list"),
+  uploadCloud: (options) => ipcRenderer.invoke("cloud:upload", options),
+  downloadCloud: (cloudId) => ipcRenderer.invoke("cloud:download", cloudId),
+  deleteCloud: (cloudId) => ipcRenderer.invoke("cloud:delete", cloudId),
+  importBundle: () => ipcRenderer.invoke("bundle:import"),
+  deleteExport: () => ipcRenderer.invoke("bundle:delete-export"),
+  readImport: (importId) => ipcRenderer.invoke("import:read", importId),
+  deleteImport: (importId) => ipcRenderer.invoke("import:delete", importId),
+  restoreProject: (importId, projectId) => ipcRenderer.invoke("project:restore", { importId, projectId }),
+  continueCodex: (importId, chatId) => ipcRenderer.invoke("chat:continue-codex", { importId, chatId }),
+  continueWeb: (importId, chatId) => ipcRenderer.invoke("chat:continue-web", { importId, chatId })
+});

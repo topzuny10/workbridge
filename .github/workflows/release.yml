@@ -1,0 +1,57 @@
+name: Build release installers
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run dist:linux
+      - run: npm run package:linux
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-installer
+          path: releases/WorkBridge-*-linux-x64.sh
+
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: chmod +x scripts/build-mac.sh && ./scripts/build-mac.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-installers
+          path: dist/WorkBridge-*.dmg
+
+  publish:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [linux, macos]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: release-files
+          merge-multiple: true
+      - name: Create or update GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" release-files/* --clobber --repo "$GITHUB_REPOSITORY"
+          else
+            gh release create "$GITHUB_REF_NAME" release-files/* --generate-notes --title "WorkBridge $GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY"
+          fi
