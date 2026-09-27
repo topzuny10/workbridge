@@ -6,7 +6,7 @@ Move selected AI conversations and project context between macOS and Linux.
 - [English user guide](README_EN.md)
 - [Download website](docs/index.html)
 - [Cloud server guide](cloud/README.md)
-- Download Website / 다운로드 웹사이트 : topzuny10.github.io/workbridge/
+- [Download Website / 다운로드 웹사이트](https://topzuny10.github.io/workbridge/)
 
 Supported sources: Codex, Claude Code, Cursor, and ChatGPT data exports.
 
