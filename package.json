@@ -10,9 +10,9 @@
     "test": "node scripts/test.cjs",
     "check": "node --check src/main.cjs && node --check src/preload.cjs && node --check src/renderer/app.js && node --check src/lib/claude-chats.cjs && node --check src/lib/cursor-chats.cjs && node --check cloud/server.cjs && node scripts/test.cjs",
     "cloud:start": "node cloud/server.cjs",
-    "dist:linux": "electron-builder --linux dir",
+    "dist:linux": "electron-builder --linux dir --publish never",
     "package:linux": "sh scripts/build-linux-installer.sh",
-    "dist:mac": "electron-builder --mac dmg --x64 --arm64"
+    "dist:mac": "electron-builder --mac dmg --x64 --arm64 --publish never"
   },
   "dependencies": {
     "adm-zip": "^0.6.1"
